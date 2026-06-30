@@ -166,12 +166,16 @@ function fit(){
 }
 function up(){si.style.transform='translate('+x+'px,'+y+'px) scale('+s+')';}
 
-document.getElementById('seatThumb').parentElement.addEventListener('click',function(e){
-  e.preventDefault();e.stopPropagation();
+var _ot=0;
+function openSeatViewer(){
+  var n=Date.now();if(n-_ot<400)return;_ot=n;
   si.src='https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg';
   if(si.complete)fit();else si.onload=function(){fit();};
   sv.style.display='flex';document.body.style.overflow='hidden';
-});
+}
+var _sp=document.getElementById('seatThumb').parentElement;
+_sp.addEventListener('click',function(e){e.preventDefault();e.stopPropagation();openSeatViewer();});
+_sp.addEventListener('touchend',function(e){e.preventDefault();openSeatViewer();});
 
 // Mouse drag
 si.addEventListener('mousedown',function(e){e.preventDefault();drag=true;px=e.clientX-x;py=e.clientY-y;si.style.cursor='grabbing';});
