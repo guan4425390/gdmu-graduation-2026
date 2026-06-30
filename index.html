@@ -185,21 +185,18 @@ sv.addEventListener('wheel',function(e){e.preventDefault();
   x-=(e.clientX-r.left)*(ns/s-1);y-=(e.clientY-r.top)*(ns/s-1);s=ns;up();
 },{passive:false});
 
-// Touch: single-finger drag + two-finger pinch
-si.addEventListener('touchstart',function(e){
+// Touch: single-finger drag + two-finger pinch (on container, so works anywhere)
+sv.addEventListener('touchstart',function(e){
   if(e.touches.length===1){px=e.touches[0].clientX-x;py=e.touches[0].clientY-y;}
   else if(e.touches.length===2){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;sd=Math.sqrt(dx*dx+dy*dy);ss=s;}
 },{passive:false});
-si.addEventListener('touchmove',function(e){e.preventDefault();
+sv.addEventListener('touchmove',function(e){e.preventDefault();
   if(e.touches.length===1){x=e.touches[0].clientX-px;y=e.touches[0].clientY-py;up();}
   else if(e.touches.length===2){var dx=e.touches[0].clientX-e.touches[1].clientX,dy=e.touches[0].clientY-e.touches[1].clientY;s=Math.min(5,Math.max(.5,ss*(Math.sqrt(dx*dx+dy*dy)/sd)));up();}
 },{passive:false});
 
-// Double tap: 100% ⇄ fit-to-screen
-si.addEventListener('click',function(e){var n=Date.now();if(n-lt<300){e.preventDefault();e.stopPropagation();if(s>1.05)fit();else{s=1;x=(sv.clientWidth-si.naturalWidth)/2;y=(sv.clientHeight-si.naturalHeight)/2;up();}}lt=n;});
-
-// Prevent page scroll when viewer open (bg overlay)
-sv.addEventListener('touchmove',function(e){if(e.target===sv)e.preventDefault();},{passive:false});
+// Double tap: 100% ⇄ fit-to-screen (on container)
+sv.addEventListener('click',function(e){var n=Date.now();if(n-lt<300){e.preventDefault();e.stopPropagation();if(s>1.05)fit();else{s=1;x=(sv.clientWidth-si.naturalWidth)/2;y=(sv.clientHeight-si.naturalHeight)/2;up();}}lt=n;});
 
 // Close: × button or click background
 sv.addEventListener('click',function(e){if(e.target===sv||e.target.classList.contains('sv-close')){sv.style.display='none';document.body.style.overflow='';}});
