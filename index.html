@@ -53,10 +53,10 @@
 
 <div class="section" id="sec-seating"><h2 class="section-title">典礼座位表</h2>
 <div style="background:var(--sf);border-radius:var(--rd);overflow:hidden;box-shadow:0 1px 6px oklch(0 0 0/.05);position:relative">
-<img id="seatThumb" src="https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg" alt="座位表" loading="lazy" width="500" style="width:100%;height:auto;display:block;cursor:pointer">
+<img id="seatThumb" src="https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg/webp" alt="座位表" width="500" style="width:100%;height:auto;display:block;cursor:pointer">
 <div id="seatLightbox" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:99999;overflow:hidden;padding:20px">
 <span style="position:absolute;top:16px;right:20px;color:#fff;font-size:1.8rem;cursor:pointer;width:40px;height:40px;display:flex;align-items:center;justify-content:center;line-height:1">×</span>
-<img src="https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg" alt="座位表大图" style="cursor:grab;user-select:none;border-radius:4px;transform-origin:0 0">
+<img src="https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg/webp" alt="座位表大图" style="cursor:grab;user-select:none;border-radius:4px;transform-origin:0 0">
 </div>
 <div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.55);color:#fff;font-size:.68rem;padding:3px 10px;border-radius:12px;pointer-events:none">点击放大查看</div>
 </div></div>
@@ -163,9 +163,14 @@ applyTransform();
 }
 
 document.getElementById('seatThumb').addEventListener('click',function(){
-fitToScreen();
 lb.style.display='flex';
 document.body.style.overflow='hidden';
+img.style.opacity='0';
+function init(){
+if(img.complete&&img.naturalWidth>0){fitToScreen();img.style.transition='opacity .2s';img.style.opacity='1';}
+else{img.addEventListener('load',function(){fitToScreen();img.style.transition='opacity .2s';img.style.opacity='1';},{once:true});}
+}
+init();
 });
 
 lb.addEventListener('wheel',function(e){
