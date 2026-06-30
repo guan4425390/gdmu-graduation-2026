@@ -52,13 +52,10 @@
 <div class="student-grid" id="studentGrid"></div><div class="no-result" id="noResult" style="display:none">未找到匹配的学生</div></div>
 
 <div class="section" id="sec-seating"><h2 class="section-title">典礼座位表</h2>
-<div style="background:var(--sf);border-radius:var(--rd);overflow:hidden;box-shadow:0 1px 6px oklch(0 0 0/.05);position:relative">
-<img id="seatThumb" src="https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg/webp" alt="座位表" width="500" style="width:100%;height:auto;display:block;cursor:pointer">
-<div id="seatLightbox" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.92);z-index:99999;overflow:hidden;padding:20px">
-<span style="position:absolute;top:16px;right:20px;color:#fff;font-size:1.8rem;cursor:pointer;width:40px;height:40px;display:flex;align-items:center;justify-content:center;line-height:1">×</span>
-<img src="https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg/webp" alt="座位表大图" style="cursor:grab;user-select:none;border-radius:4px;transform-origin:0 0">
-</div>
-<div style="position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,0.55);color:#fff;font-size:.68rem;padding:3px 10px;border-radius:12px;pointer-events:none">点击放大查看</div>
+<div style="background:var(--sf);border-radius:var(--rd);overflow:hidden;box-shadow:0 1px 6px oklch(0 0 0/.05);position:relative;cursor:pointer" onclick="window.open('https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg','_blank')">
+<img id="seatThumb" src="https://backup.fukit.cn/autoupload/fr/nhB8emIHJ518is42FsaJONNdhtdHzhFkkY45PysBtamyl5f0KlZfm6UsKj-HyTuv/20260701/1D7G/2480X3507/7%E6%9C%882%E6%97%A52026%E5%B1%8A%E7%AC%AC%E4%BA%8C%E6%89%B9%E5%AD%A6%E4%BD%8D%E6%8E%88%E4%BA%88%E4%BB%AA%E5%BC%8F%E5%BA%A7%E4%BD%8D%E8%A1%A8%282%29.jpg" alt="座位表" width="500" style="width:100%;height:auto;display:block;cursor:pointer">
+
+
 </div></div>
 
 <div class="section" id="sec-notes"><h2 class="section-title">注意事项</h2><div class="note-list">
@@ -139,101 +136,7 @@ tk=true;
 });
 })();
 
-// Seat lightbox - zoom & pan
-(function(){
-var lb=document.getElementById('seatLightbox');
-var img=lb.querySelector('img');
-var scale=1,minScale=0.3,maxScale=5;
-var tx=0,ty=0;
-var isDragging=false,startX,startY,startTx,startTy;
 
-function applyTransform(){
-img.style.transform='translate('+tx+'px,'+ty+'px) scale('+scale+')';
-}
-
-function fitToScreen(){
-var cw=lb.clientWidth-40;
-var ch=lb.clientHeight-40;
-var iw=img.naturalWidth;
-var ih=img.naturalHeight;
-scale=Math.min(cw/iw,ch/ih);
-tx=(cw-iw*scale)/2;
-ty=(ch-ih*scale)/2;
-applyTransform();
-}
-
-document.getElementById('seatThumb').addEventListener('click',function(){
-lb.style.display='flex';
-document.body.style.overflow='hidden';
-img.style.opacity='0';
-function init(){
-if(img.complete&&img.naturalWidth>0){fitToScreen();img.style.transition='opacity .2s';img.style.opacity='1';}
-else{img.addEventListener('load',function(){fitToScreen();img.style.transition='opacity .2s';img.style.opacity='1';},{once:true});}
-}
-init();
-});
-
-lb.addEventListener('wheel',function(e){
-e.preventDefault();
-var rect=img.getBoundingClientRect();
-var mx=e.clientX-rect.left;
-var my=e.clientY-rect.top;
-var oldScale=scale;
-var delta=e.deltaY>0?0.9:1.1;
-scale=Math.max(minScale,Math.min(maxScale,scale*delta));
-var ratio=scale/oldScale;
-tx=mx-ratio*(mx-tx);
-ty=my-ratio*(my-ty);
-applyTransform();
-},{passive:false});
-
-img.addEventListener('mousedown',function(e){
-e.preventDefault();
-isDragging=true;
-startX=e.clientX;
-startY=e.clientY;
-startTx=tx;
-startTy=ty;
-img.style.cursor='grabbing';
-});
-
-window.addEventListener('mousemove',function(e){
-if(!isDragging)return;
-tx=startTx+(e.clientX-startX);
-ty=startTy+(e.clientY-startY);
-applyTransform();
-});
-
-window.addEventListener('mouseup',function(){
-if(isDragging){
-isDragging=false;
-img.style.cursor='grab';
-}
-});
-
-img.addEventListener('dblclick',function(e){
-e.preventDefault();
-if(Math.abs(scale-1)<0.01){
-fitToScreen();
-}else{
-scale=1;tx=0;ty=0;
-applyTransform();
-}
-});
-
-lb.querySelector('span').addEventListener('click',function(e){
-e.stopPropagation();
-lb.style.display='none';
-document.body.style.overflow='';
-});
-
-lb.addEventListener('click',function(e){
-if(e.target===lb){
-lb.style.display='none';
-document.body.style.overflow='';
-}
-});
-})();
 
 // Blessing lightbox
 document.getElementById('blessingBox').addEventListener('click',function(){
