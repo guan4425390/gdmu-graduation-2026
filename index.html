@@ -18,6 +18,7 @@
 <div class="nav-pill" data-target="sec-checklist">物料清单</div>
 <div class="nav-pill" data-target="sec-seating">座位表</div>
 <div class="nav-pill" data-target="sec-notes">注意事项</div>
+<div class="nav-pill" data-target="sec-passcard">通行证</div>
 </div>
 
 <div class="section" id="sec-schedule"><h2 class="section-title">典礼流程</h2><div class="flow-steps">
@@ -203,4 +204,11 @@ sv.addEventListener('click',function(e){var n=Date.now();if(n-lt<300){e.preventD
 sv.addEventListener('click',function(e){if(e.target===sv||e.target.classList.contains('sv-close')){sv.style.display='none';document.body.style.overflow='';}});
 })();
 </script>
-<div id="seatViewer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center"><span class="sv-close" style="position:absolute;top:16px;right:20px;color:#fff;font-size:32px;cursor:pointer;z-index:10;line-height:1">&times;</span><img src="" style="max-width:none;cursor:grab;transform-origin:0 0;user-select:none;-webkit-user-drag:none" draggable="false"></div></body></html>
+<div id="seatViewer" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.92);z-index:9999;align-items:center;justify-content:center"><span class="sv-close" style="position:absolute;top:16px;right:20px;color:#fff;font-size:32px;cursor:pointer;z-index:10;line-height:1">&times;</span><img src="" style="max-width:none;cursor:grab;transform-origin:0 0;user-select:none;-webkit-user-drag:none" draggable="false"></div>
+
+<div class="section" id="sec-passcard" style="text-align:center;padding-bottom:40px">
+<h2 class="section-title">入校通行证</h2>
+<img src="assets/passcard.jpg" alt="入校通行证" style="width:100%;max-width:600px;height:auto;border-radius:8px;box-shadow:0 2px 12px rgba(0,0,0,0.1)">
+</div>
+
+</body></html>
